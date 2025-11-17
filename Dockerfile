@@ -35,6 +35,10 @@ COPY --from=builder /out/bin/mtproto-proxy /usr/local/bin/mtproto-proxy
 
 WORKDIR /opt/MTProxy
 
+# Download proxy secret and config (optional, can be overridden at runtime)
+RUN curl -s https://core.telegram.org/getProxySecret -o /opt/MTProxy/proxy-secret && \
+    curl -s https://core.telegram.org/getProxyConfig -o /opt/MTProxy/proxy-multi.conf
+
 # Expose default ports (proxy port and local stats port)
 EXPOSE 443 8888
 
